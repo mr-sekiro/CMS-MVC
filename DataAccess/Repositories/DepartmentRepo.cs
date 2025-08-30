@@ -1,4 +1,5 @@
 ﻿using DataAccess.Data.DbContexts;
+using DataAccess.Models.DepartmentModel;
 
 
 namespace DataAccess.Repositories

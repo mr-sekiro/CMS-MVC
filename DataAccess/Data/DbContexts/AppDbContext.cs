@@ -1,4 +1,5 @@
 ﻿
+using DataAccess.Models.DepartmentModel;
 using System.Reflection;
 
 namespace DataAccess.Data.DbContexts
@@ -10,6 +11,7 @@ namespace DataAccess.Data.DbContexts
 
         //}
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    optionsBuilder.UseSqlServer();

@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.Data_Transfer_Object;
-using DataAccess.Models;
+using DataAccess.Models.DepartmentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
