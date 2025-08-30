@@ -1,4 +1,7 @@
-using BusinessLogic.Services;
+using BusinessLogic;
+using BusinessLogic.Profiles;
+using BusinessLogic.Services.Classes;
+using BusinessLogic.Services.Interfaces;
 using DataAccess.Data.DbContexts;
 using DataAccess.Models;
 using DataAccess.Repositories.Classes;
@@ -7,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Presentation
 {
@@ -31,6 +35,9 @@ namespace Presentation
 
             builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+            builder.Services.AddScoped<IEmployeeRepo, EmployeeRepo>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddAutoMapper(M=>M.AddProfile(new MappingProfiles()));
 
             #endregion
 
