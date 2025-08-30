@@ -1,7 +1,8 @@
 using BusinessLogic.Services;
 using DataAccess.Data.DbContexts;
 using DataAccess.Models;
-using DataAccess.Repositories;
+using DataAccess.Repositories.Classes;
+using DataAccess.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;

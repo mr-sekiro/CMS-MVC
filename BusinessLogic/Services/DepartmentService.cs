@@ -1,6 +1,6 @@
 ﻿using BusinessLogic.Data_Transfer_Object;
 using BusinessLogic.Factories;
-using DataAccess.Repositories;
+using DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
