@@ -1,5 +1,5 @@
-﻿using BusinessLogic.Data_Transfer_Object;
-using BusinessLogic.Services;
+﻿using BusinessLogic.Data_Transfer_Object.DepartmentDtos;
+using BusinessLogic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.ViewModels.DepartmentsViewModel;
 

@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Data_Transfer_Object;
+﻿using BusinessLogic.Data_Transfer_Object.DepartmentDtos;
 using DataAccess.Models.DepartmentModel;
 using System;
 using System.Collections.Generic;
