@@ -18,12 +18,21 @@ namespace Presentation.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
-        public IActionResult Create(CreatedDepartmentDto createdDepartmentDto)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Create(DepartmentViewModel departmentViewModel)
         {
             if (ModelState.IsValid) //server side Validation
             {
                 try
                 {
+                    var createdDepartmentDto = new CreatedDepartmentDto()
+                    {
+                        Code = departmentViewModel.Code,
+                        Name = departmentViewModel.Name,
+                        Description = departmentViewModel.Description,
+                        DateOfCreation = departmentViewModel.DateOfCreation
+                    };
+
                     int result = departmentService.AddDepartment(createdDepartmentDto);
                     if (result > 0)
                     {
@@ -49,7 +58,7 @@ namespace Presentation.Controllers
                 }
             }
 
-            return View(createdDepartmentDto);
+            return View(departmentViewModel);
 
         }
         #endregion
@@ -77,7 +86,7 @@ namespace Presentation.Controllers
             var department = departmentService.GetDepartmentById(id.Value);
 
             if (department is null) return NotFound();// 404
-            return View(new DepartmentEditViewModel()
+            return View(new DepartmentViewModel()
             {
                 Code = department.Code,
                 Name = department.Name,
@@ -87,7 +96,8 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromRoute] int id, DepartmentEditViewModel departmentEditViewModel)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Edit([FromRoute] int id, DepartmentViewModel departmentEditViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -139,6 +149,7 @@ namespace Presentation.Controllers
         //    return View(department);
         //}
         [HttpPost]
+        //[ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             if (id == 0)

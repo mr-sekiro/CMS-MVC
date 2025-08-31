@@ -23,11 +23,11 @@ namespace DataAccess.Repositories.Classes
         {
             if (WithTracking)
             {
-                return dbContext.Set<T>().ToList();
+                return dbContext.Set<T>().Where(E => E.IsDeleted != true).ToList();
             }
             else
             {
-                return dbContext.Set<T>().AsNoTracking().ToList();
+                return dbContext.Set<T>().Where(E => E.IsDeleted != true).AsNoTracking().ToList();
             }
         }
 
