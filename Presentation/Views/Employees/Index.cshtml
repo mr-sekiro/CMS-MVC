@@ -38,7 +38,10 @@
                     <td>@employee.Age</td>
                     <td>@Html.DisplayFor(E => employee.Salary)</td>
                     <td>
-                        <i class="@(employee.IsActive ? "fa-solid fa-circle-check text-success" : "fa-solid fa-times-check text-success")"></i>
+                        <i class="@(employee.IsActive
+                                   ? "fa-solid fa-circle-check text-success"
+                                   : "fa-solid fa-circle-xmark text-danger")">
+                        </i>
                     </td>
                     <td>@employee.Gender</td>
 
