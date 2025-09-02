@@ -1,7 +1,17 @@
-﻿using BusinessLogic.Data_Transfer_Object.DepartmentDtos;
+﻿using Azure.Core;
+using BusinessLogic.Data_Transfer_Object.DepartmentDtos;
 using BusinessLogic.Services.Interfaces;
+using Humanizer;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.VisualStudio.Web.CodeGeneration.Utils;
+using Newtonsoft.Json.Linq;
 using Presentation.ViewModels.DepartmentsViewModel;
+using System.Diagnostics.Metrics;
+using System.Net;
+using System.Net.NetworkInformation;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Presentation.Controllers
 {
@@ -34,14 +44,20 @@ namespace Presentation.Controllers
                     };
 
                     int result = departmentService.AddDepartment(createdDepartmentDto);
+                    string message;
                     if (result > 0)
                     {
-                        return RedirectToAction(nameof(Index));
+                        //return RedirectToAction(nameof(Index));
+                        message = $"{departmentViewModel.Name} Department Created Successfully";
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Department Can't Be Created");
+                        //ModelState.AddModelError(string.Empty, "Department Can't Be Created");
+                        message = $"{departmentViewModel.Name} Department Can not be Created";
                     }
+                    TempData["Message"] = message;
+                    TempData["Result"] = result;
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {

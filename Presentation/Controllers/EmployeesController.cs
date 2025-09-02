@@ -48,14 +48,20 @@ namespace Presentation.Controllers
                         EmployeeType = employeeViewModel.EmployeeType
                     };
                     int result = employeeService.AddEmployee(createdEmployeeDto);
+                    string message;
                     if (result > 0)
                     {
-                        return RedirectToAction(nameof(Index));
+                        //return RedirectToAction(nameof(Index));
+                        message = $"{employeeViewModel.Name} Created Successfully";
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Employee Can't Be Created");
+                        //ModelState.AddModelError(string.Empty, "Employee Can't Be Created");
+                        message = $"{employeeViewModel.Name} Can't Be Created";
                     }
+                    TempData["Message"] = message;
+                    TempData["Result"] = result;
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {
@@ -97,7 +103,7 @@ namespace Presentation.Controllers
             if (employee is null) return NotFound();// 404
             return View(new EmployeeViewModel()
             {
-                
+
                 Name = employee.Name,
                 Salary = employee.Salary,
                 Address = employee.Address,
@@ -115,7 +121,7 @@ namespace Presentation.Controllers
         //[ValidateAntiForgeryToken]
         public IActionResult Edit([FromRoute] int id, EmployeeViewModel employeeViewModel)
         {
-            
+
             if (ModelState.IsValid)
             {
                 try
@@ -129,7 +135,7 @@ namespace Presentation.Controllers
                         Age = employeeViewModel.Age,
                         Email = employeeViewModel.Email,
                         PhoneNumber = employeeViewModel.PhoneNumber,
-                        HiringDate= employeeViewModel.HiringDate,
+                        HiringDate = employeeViewModel.HiringDate,
                         IsActive = employeeViewModel.IsActive,
                         Gender = employeeViewModel.Gender,
                         EmployeeType = employeeViewModel.EmployeeType
