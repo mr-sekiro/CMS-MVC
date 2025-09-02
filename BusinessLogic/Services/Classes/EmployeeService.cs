@@ -50,7 +50,15 @@ namespace BusinessLogic.Services.Classes
         }
         public int UpdateEmployee(UpdatedEmployeeDto updatedEmployeeDto)
         {
-            var employee = mapper.Map<Employee>(updatedEmployeeDto);
+            //var employee = mapper.Map<Employee>(updatedEmployeeDto);
+            //return employeeRepo.Update(employee);
+
+            var employee = employeeRepo.GetById(updatedEmployeeDto.Id);
+            if (employee is null)
+            {
+                return 0;
+            }
+            mapper.Map(updatedEmployeeDto, employee);
             return employeeRepo.Update(employee);
         }
         public bool DeleteEmployee(int id)
