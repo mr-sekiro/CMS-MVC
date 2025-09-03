@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace DataAccess.Models.EmployeeModel
 {
     public class Employee : BaseEntity
@@ -13,5 +15,8 @@ namespace DataAccess.Models.EmployeeModel
         public DateTime HhiringDate { get; set; }
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
+
+        public Department? Department { get; set; }
+        public int? DepartmentId { get; set; }
     }
 }

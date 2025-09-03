@@ -8,6 +8,12 @@ namespace DataAccess.Data.Configurations
             builder.Property(D => D.Id).UseIdentityColumn(10, 10);
             builder.Property(D => D.Name).HasColumnType("varchar(20)");
             builder.Property(D => D.Code).HasColumnType("varchar(20)");
+
+            builder.HasMany(D => D.Employees)
+                .WithOne(D => D.Department)
+                .HasForeignKey(E => E.DepartmentId)
+                .OnDelete(deleteBehavior: DeleteBehavior.SetNull);
+
             base.Configure(builder);
         }
     }
