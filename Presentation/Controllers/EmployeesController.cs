@@ -26,6 +26,15 @@ namespace Presentation.Controllers
         {
             return View();
         }
+
+        // using TempData to pass Departments to The View: 
+        //[HttpGet]
+        //public IActionResult Create([FromServices] IDepartmentService departmentService)
+        //{
+        //    ViewData["Departments"] = departmentService.GetAllDepartments();
+        //    return View();
+        //}
+
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public IActionResult Create(EmployeeViewModel employeeViewModel)
@@ -45,7 +54,8 @@ namespace Presentation.Controllers
                         HiringDate = employeeViewModel.HiringDate,
                         IsActive = employeeViewModel.IsActive,
                         Gender = employeeViewModel.Gender,
-                        EmployeeType = employeeViewModel.EmployeeType
+                        EmployeeType = employeeViewModel.EmployeeType,
+                        DepartmentId = employeeViewModel.DepartmentId
                     };
                     int result = employeeService.AddEmployee(createdEmployeeDto);
                     string message;
@@ -113,7 +123,8 @@ namespace Presentation.Controllers
                 IsActive = employee.IsActive,
                 HiringDate = employee.HiringDate,
                 Gender = Enum.Parse<Gender>(employee.Gender),
-                EmployeeType = Enum.Parse<EmployeeType>(employee.EmployeeType)
+                EmployeeType = Enum.Parse<EmployeeType>(employee.EmployeeType),
+                DepartmentId = employee.DepartmentId
             });
         }
 
@@ -138,7 +149,8 @@ namespace Presentation.Controllers
                         HiringDate = employeeViewModel.HiringDate,
                         IsActive = employeeViewModel.IsActive,
                         Gender = employeeViewModel.Gender,
-                        EmployeeType = employeeViewModel.EmployeeType
+                        EmployeeType = employeeViewModel.EmployeeType,
+                        DepartmentId = employeeViewModel.DepartmentId
                     };
                     int result = employeeService.UpdateEmployee(updatedEmployeeDto);
                     if (result > 0) return RedirectToAction(nameof(Index));

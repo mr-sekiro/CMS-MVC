@@ -47,6 +47,11 @@
                 <input asp-for="Salary" class="form-control" readonly />
             </div>
             <div class="form-group mb-3 col-6">
+                <label class="form-label" asp-for="Department"></label>
+                <input value="@(!string.IsNullOrEmpty(Model.Department) ? Model.Department : "No Department")" class="form-control" readonly />
+
+            </div>
+            <div class="form-group mb-3 col-6">
                 <label class="form-label" asp-for="Gender"></label>
                 <input asp-for="Gender" class="form-control" readonly />
             </div>

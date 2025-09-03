@@ -1,5 +1,12 @@
-﻿
-@model EmployeeViewModel
+﻿@model EmployeeViewModel
+@{
+    //using TempData to pass Departments to The View:
+    //var departments = new SelectList(ViewData["Departments"] as IEnumerable<DepartmentDto>, nameof(DepartmentDto.Id), nameof(DepartmentDto.Name));
+}
+@inject IDepartmentService departmentService
+@{
+    var departments = new SelectList(departmentService.GetAllDepartments(), nameof(DepartmentDto.Id), nameof(DepartmentDto.Name));
+}
 
 <div class="form-group mb-3 col-6">
     <label class="form-label" asp-for="Name"></label>
@@ -35,6 +42,14 @@
     <label class="form-label" asp-for="Salary"></label>
     <input asp-for="Salary" class="form-control" />
     <span asp-validation-for="Salary" class="text-danger"></span>
+</div>
+<div class="form-group mb-3 col-6">
+    <label class="form-label" asp-for="DepartmentId"></label>
+    <select asp-for="DepartmentId" asp-items="departments"
+            class="form-control">
+        <option value="">Select Department</option>
+    </select>
+    <span asp-validation-for="EmployeeType" class="text-danger"></span>
 </div>
 <div class="form-group mb-3 col-6">
     <label class="form-label" asp-for="Gender"></label>

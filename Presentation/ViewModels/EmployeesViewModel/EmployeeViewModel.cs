@@ -1,5 +1,6 @@
 ﻿using DataAccess.Models.EmployeeModel;
 using DataAccess.Models.Shared.Enums;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Presentation.ViewModels.EmployeesViewModel
@@ -28,5 +29,7 @@ namespace Presentation.ViewModels.EmployeesViewModel
         public DateOnly HiringDate { get; set; }
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
+        [DisplayName("Department")]
+        public int? DepartmentId { get; set; }
     }
 }

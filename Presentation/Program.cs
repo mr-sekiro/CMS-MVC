@@ -37,6 +37,7 @@ namespace Presentation
                 //dbContextOptions.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]);
                 //dbContextOptions.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
                 dbContextOptions.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                dbContextOptions.UseLazyLoadingProxies();
             });
 
             builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();
