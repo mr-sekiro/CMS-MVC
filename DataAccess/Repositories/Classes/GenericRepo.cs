@@ -102,24 +102,21 @@ namespace DataAccess.Repositories.Classes
         public T? GetById(int id) => dbContext.Set<T>().Find(id);
 
         //Update
-        public int Update(T entity)
+        public void Update(T entity)
         {
-            dbContext.Set<T>().Update(entity);
-            return dbContext.SaveChanges();
+            dbContext.Set<T>().Update(entity);          
         }
 
         //Delete
-        public int Remove(T entity)
+        public void Remove(T entity)
         {
-            dbContext.Set<T>().Remove(entity);
-            return dbContext.SaveChanges();
+            dbContext.Set<T>().Remove(entity);  
         }
 
         //Insert
-        public int Add(T entity)
+        public void Add(T entity)
         {
             dbContext.Set<T>().Add(entity);
-            return dbContext.SaveChanges();
         }
 
     }

@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services.Classes
 {
-    public class DepartmentService(IDepartmentRepo departmentRepo) : IDepartmentService
+    public class DepartmentService(IUnitOfWork unitOfWork) : IDepartmentService
     //Injection
     {
         // Get All Department
         public IEnumerable<DepartmentDto> GetAllDepartments()
         {
 
-            var departments = departmentRepo.GetAll();
+            var departments = unitOfWork.DepartmentRepo.GetAll();
             ////Manual Mapping:
             //var departmentsToReturn = departments.Select(D => new DepartmentDto()
             //{
@@ -40,30 +40,33 @@ namespace BusinessLogic.Services.Classes
         // Get Department By Id
         public DepartmentDetailsDto? GetDepartmentById(int id)
         {
-            var department = departmentRepo.GetById(id);
+            var department = unitOfWork.DepartmentRepo.GetById(id);
             return department is null ? null : department.ToDepartmentDetailsDto();
         }
 
         // Create New Department
         public int AddDepartment(CreatedDepartmentDto createdDepartmentDto)
         {
-            return departmentRepo.Add(createdDepartmentDto.ToEntity());
+            unitOfWork.DepartmentRepo.Add(createdDepartmentDto.ToEntity());
+            return unitOfWork.SaveChanges();
         }
 
         // Update Department
         public int UpdateDepartment(UpdatedDepartmentDto updatedDepartmentDto)
         {
-            return departmentRepo.Update(updatedDepartmentDto.ToEntity());
+            unitOfWork.DepartmentRepo.Update(updatedDepartmentDto.ToEntity());
+            return unitOfWork.SaveChanges();
         }
 
         // Delete Department
         public bool DeleteDepartment(int id)
         {
-            var department = departmentRepo.GetById(id);
+            var department = unitOfWork.DepartmentRepo.GetById(id);
             if (department is null) return false;
             else
             {
-                int result = departmentRepo.Remove(department);
+                unitOfWork.DepartmentRepo.Remove(department);
+                int result = unitOfWork.SaveChanges();
                 return result > 0 ? true : false;
             }
         }

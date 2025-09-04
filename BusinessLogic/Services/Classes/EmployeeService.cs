@@ -19,15 +19,15 @@ namespace BusinessLogic.Services.Classes
     //  Maps properties with the same name automatically
     //  Supports complex mappings and value transformations
     //  Maps complex object graphs to simpler models
-    public class EmployeeService(IEmployeeRepo employeeRepo, IMapper mapper) : IEmployeeService
+    public class EmployeeService(IUnitOfWork unitOfWork, IMapper mapper) : IEmployeeService
     {
         public IEnumerable<EmployeeDto> GetAllEmployees(string? searchName)
         {
             IEnumerable<Employee> employees;
             if (string.IsNullOrWhiteSpace(searchName))
-                employees = employeeRepo.GetAll();
+                employees = unitOfWork.EmployeeRepo.GetAll();
             else
-                employees = employeeRepo.GetAll(E => E.Name.ToLower().Contains(searchName.ToLower()));
+                employees = unitOfWork.EmployeeRepo.GetAll(E => E.Name.ToLower().Contains(searchName.ToLower()));
 
             // Auto Mapper
 
@@ -45,37 +45,40 @@ namespace BusinessLogic.Services.Classes
 
         public EmployeeDetailsDto? GetEmployeeById(int id)
         {
-            var employee = employeeRepo.GetById(id);
+            var employee = unitOfWork.EmployeeRepo.GetById(id);
             return employee is null ? null : mapper.Map<EmployeeDetailsDto>(employee);
 
         }
         public int AddEmployee(CreatedEmployeeDto createdEmployeeDto)
         {
             var employee = mapper.Map<Employee>(createdEmployeeDto);
-            return employeeRepo.Add(employee);
+            unitOfWork.EmployeeRepo.Add(employee);
+            return unitOfWork.SaveChanges();
         }
         public int UpdateEmployee(UpdatedEmployeeDto updatedEmployeeDto)
         {
             //var employee = mapper.Map<Employee>(updatedEmployeeDto);
             //return employeeRepo.Update(employee);
 
-            var employee = employeeRepo.GetById(updatedEmployeeDto.Id);
+            var employee = unitOfWork.EmployeeRepo.GetById(updatedEmployeeDto.Id);
             if (employee is null)
             {
                 return 0;
             }
             mapper.Map(updatedEmployeeDto, employee);
-            return employeeRepo.Update(employee);
+            unitOfWork.EmployeeRepo.Update(employee);
+            return unitOfWork.SaveChanges();
         }
         public bool DeleteEmployee(int id)
         {
             //Soft delete
-            var employee = employeeRepo.GetById(id);
+            var employee = unitOfWork.EmployeeRepo.GetById(id);
             if (employee is null) return false;
             else
             {
                 employee.IsDeleted = true;
-                return employeeRepo.Update(employee) > 0 ? true : false;
+                unitOfWork.EmployeeRepo.Update(employee);
+                return unitOfWork.SaveChanges() > 0 ? true : false;
             }
         }
     }

@@ -13,8 +13,8 @@ namespace DataAccess.Repositories.Interfaces
         IEnumerable<TResult> GetAll<TResult>(Expression<Func<T, TResult>> selector);
         IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate);
         T? GetById(int id);
-        int Add(T entity);
-        int Remove(T entity);
-        int Update(T entity);
+        void Add(T entity);
+        void Remove(T entity);
+        void Update(T entity);
     }
 }
