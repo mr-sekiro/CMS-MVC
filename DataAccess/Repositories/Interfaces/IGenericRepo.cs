@@ -10,7 +10,8 @@ namespace DataAccess.Repositories.Interfaces
     public interface IGenericRepo<T> where T : BaseEntity
     {
         IEnumerable<T> GetAll(bool WithTracking = false);
-        IEnumerable<TResult> GetAll<TResult>(Expression <Func<T,TResult>> selector);
+        IEnumerable<TResult> GetAll<TResult>(Expression<Func<T, TResult>> selector);
+        IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate);
         T? GetById(int id);
         int Add(T entity);
         int Remove(T entity);

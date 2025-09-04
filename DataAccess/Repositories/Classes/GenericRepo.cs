@@ -93,6 +93,11 @@ namespace DataAccess.Repositories.Classes
             return dbContext.Set<T>().Where(E => E.IsDeleted != true).Select(selector).ToList();
         }
 
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate)
+        {
+            return dbContext.Set<T>().Where(E => E.IsDeleted != true).Where(predicate).ToList();
+        }
+
         //Get By Id
         public T? GetById(int id) => dbContext.Set<T>().Find(id);
 

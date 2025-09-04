@@ -15,9 +15,9 @@ namespace Presentation.Controllers
 {
     public class EmployeesController(IEmployeeService employeeService, ILogger<DepartmentsController> logger, IWebHostEnvironment environment) : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string? employeeSearchName)
         {
-            var employees = employeeService.GetAllEmployees();
+            var employees = employeeService.GetAllEmployees(employeeSearchName);
             return View(employees);
         }
 

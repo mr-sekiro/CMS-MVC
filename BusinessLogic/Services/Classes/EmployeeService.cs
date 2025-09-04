@@ -21,10 +21,16 @@ namespace BusinessLogic.Services.Classes
     //  Maps complex object graphs to simpler models
     public class EmployeeService(IEmployeeRepo employeeRepo, IMapper mapper) : IEmployeeService
     {
-        public IEnumerable<EmployeeDto> GetAllEmployees()
+        public IEnumerable<EmployeeDto> GetAllEmployees(string? searchName)
         {
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrWhiteSpace(searchName))
+                employees = employeeRepo.GetAll();
+            else
+                employees = employeeRepo.GetAll(E => E.Name.ToLower().Contains(searchName.ToLower()));
+
             // Auto Mapper
-            var employees = employeeRepo.GetAll();
+
             //src = Employee
             //dest = EmployeeDto
             var employeesDto = mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
